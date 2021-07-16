@@ -5,7 +5,7 @@
 | Column              | Type   | Options      |
 | ------------------  | ------ | -----------  |
 | nickname            | string | null: false  |
-| email               | string | unique: true |
+| email               | string | null: false, unique: true |
 | encrypted_password  | string | null: false  |
 | family_name         | string | null: false  |
 | first_name          | string | null: false  |
@@ -26,11 +26,11 @@
 | name            | string  | null: false |
 | description     | text    | null: false |
 | price           | integer | null: false |
-| category_id     |         | null: false |
-| condition_id    |         | null: false |
-| contribution_id |         | null: false |
-| prefectures_id  |         | null: false |
-| d_t_ship_id     |         | null: false |
+| category_id     | integer | null: false |
+| condition_id    | integer | null: false |
+| contribution_id | integer | null: false |
+| prefectures_id  | integer | null: false |
+| d_t_ship_id     | integer | null: false |
 | user            | references | null: false, foreign_key: true 
 
 ### Association
@@ -44,7 +44,6 @@
 
 | Column       | Type       | Options                        |
 | -----------  | ---------- | ------------------------------ |
-| s_address_id |            | null: false                    |
 | user         | references | null: false, foreign_key: true |
 | item         | references | null: false, foreign_key: true |
 
@@ -52,7 +51,7 @@
 
 - belongs_to :item
 - belongs_to :user
-- belongs_to :address
+- has_one :address
 
 
 ##  addressesテーブル
@@ -70,6 +69,6 @@
 
 ### Association
 
-- belongs_to :item
+- has_many :item
 - belongs_to :user
 - has_one :purchases

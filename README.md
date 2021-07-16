@@ -7,7 +7,9 @@
 | nickname           | string | null: false |
 | email              | string | null: false |
 | encrypted_password | string | null: false |
-| name               | string | null: false |
+| family_name        | string | null: false |
+| first_name         | string | null: false |
+| birth                       | null: false |
 
 ### Association
 - has_many :comments
@@ -18,10 +20,14 @@
 
 | Column      | Type    | Options     |
 | ------      | ------  | ----------- |
-| image           ActiveStorageで実装  |
 | name        | string  | null: false |
-| description | text    |
+| description | text    | null: false |
 | price       | integer | null: false |
+| category    |         | null: false |
+| condition   |         | null: false |
+| shipping    |         | null: false |
+| s_address   |         | null: false |
+| d_t_ship    |         | null: false |
 | user        | references | null: false, foreign_key: true 
 
 ### Association
@@ -45,10 +51,11 @@
 
 ##  purchasesテーブル
 
-| Column  | Type       | Options                        |
-| ------- | ---------- | ------------------------------ |
-| user    | references | null: false, foreign_key: true |
-| item    | references | null: false, foreign_key: true |
+| Column      | Type       | Options                        |
+| ----------- | ---------- | ------------------------------ |
+| s_address   |            | null: false                    |
+| user        | references | null: false, foreign_key: true |
+| item        | references | null: false, foreign_key: true |
 
 ### Association
 

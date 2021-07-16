@@ -58,17 +58,14 @@
 
 | Column         | Type     | Options     |
 | -----------    | -------- | ----------- |
-| post           | integer  | null: false | 
+| post           | string   | null: false | 
 | prefectures_id | string   | null: false |
-| city_id        | string   | null: false |
-| address_id     | integer  | null: false |
-| building_id    | string   | null: false |
-| tel_id         | string   | null: false |
-| user         | references | null: false, foreign_key: true |
-| item         | references | null: false, foreign_key: true |
+| city           | string   | null: false |
+| address        | integer  | null: false |
+| building       | string   | null: false |
+| tel            | string   | null: false |
+| purchases      |references| null: false, foreign_key: true |
 
 ### Association
 
-- has_many :item
-- belongs_to :user
-- has_one :purchases
+- belongs_to :purchases

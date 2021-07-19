@@ -7,13 +7,15 @@ class User < ApplicationRecord
   validates :nickname,            presence: true
   
   with_options presence: true do
+    validates :nickname,            presence: true
     validates :family_name, format: {with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/}
     validates :first_name, format: {with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/}
     validates :family_name_reading, format: {with: /\A[ァ-ヶー]+\z/}
     validates :first_name_reading, format: {with: /\A[ァ-ヶー]+\z/}
+    validates :birthday,            presence: true  
   end
   validates :password, format: {with: /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i}
-  validates :birthday,            presence: true    
+  
    
   has_many :items
   has_many :purchases

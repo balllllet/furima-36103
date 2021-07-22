@@ -10,6 +10,6 @@ FactoryBot.define do
     first_name_reading {"タロウ"}
     birthday{"1990-11-01"}
 
-    association :item
+    # association :item
   end
 end

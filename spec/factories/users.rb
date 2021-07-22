@@ -9,5 +9,7 @@ FactoryBot.define do
     family_name_reading {"ヤマダ"}
     first_name_reading {"タロウ"}
     birthday{"1990-11-01"}
+
+    association :item
   end
 end

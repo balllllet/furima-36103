@@ -14,7 +14,7 @@ RSpec.describe Item, type: :model do
 
   context '商品出品がうまくいかないとき' do      
       it 'imageが空では登録できないこと' do
-        @item.name = ''
+        @item.name = nil
         @item.valid?
         expect(@item.errors.full_messages).to include("Name can't be blank")
       end
@@ -38,19 +38,25 @@ RSpec.describe Item, type: :model do
       end
 
       it 'priceが300円未満では登録できないこと' do
-        @item.price = '299'
+        @item.price = 299
         @item.valid?
         expect(@item.errors.full_messages).to include("Price is invalid")
       end
 
       it 'priceが9999999円より大きいと登録できないこと' do
-        @item.price = '10000000'
+        @item.price = 10000000
         @item.valid?
         expect(@item.errors.full_messages).to include("Price is invalid")
       end
-    
-      it 'priceが半角数値以外では登録できないこと' do
-        @item.price = 'a'
+
+      it 'priceが全角では登録できないこと' do
+        @item.price = 'あ'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price is invalid")
+      end
+
+      it 'priceが英数字混合では登録できないこと' do
+        @item.price = '300a'
         @item.valid?
         expect(@item.errors.full_messages).to include("Price is invalid")
       end
@@ -62,9 +68,9 @@ RSpec.describe Item, type: :model do
       end
 
       it 'category_idが---では登録できないこと' do
-        @item.category_id = '1'
+        @item.category_id = 0
         @item.valid?
-        expect(@item.errors.full_messages).to include("Category must be other than 1")
+        expect(@item.errors.full_messages).to include("Category must be other than 0")
       end
 
       it 'sales_status_idが空では登録できないこと' do
@@ -74,9 +80,9 @@ RSpec.describe Item, type: :model do
       end
 
       it 'sales_status_idが---では登録できないこと' do
-        @item.sales_status_id = '1'
+        @item.sales_status_id = 0
         @item.valid?
-        expect(@item.errors.full_messages).to include("Sales status must be other than 1")
+        expect(@item.errors.full_messages).to include("Sales status must be other than 0")
       end
 
       it 'shipping_fee_status_idが空では登録できないこと' do
@@ -86,9 +92,9 @@ RSpec.describe Item, type: :model do
       end
 
       it 'shipping_fee_status_idが---では登録できないこと' do
-        @item.shipping_fee_status_id = '1'
+        @item.shipping_fee_status_id = 0
         @item.valid?
-        expect(@item.errors.full_messages).to include("Shipping fee status must be other than 1")
+        expect(@item.errors.full_messages).to include("Shipping fee status must be other than 0")
       end
 
       it 'prefecture_idが空では登録できないこと' do
@@ -98,7 +104,7 @@ RSpec.describe Item, type: :model do
       end
       
       it 'prefecture_idが---では登録できないこと' do
-        @item.prefecture_id = '0'
+        @item.prefecture_id = 0
         @item.valid?
         expect(@item.errors.full_messages).to include("Prefecture must be other than 0")
       end
@@ -110,9 +116,15 @@ RSpec.describe Item, type: :model do
       end
 
       it 'scheduled_delivery_idが---では登録できないこと' do
-        @item.scheduled_delivery_id = '1'
+        @item.scheduled_delivery_id = 0
         @item.valid?
-        expect(@item.errors.full_messages).to include("Scheduled delivery must be other than 1")
+        expect(@item.errors.full_messages).to include("Scheduled delivery must be other than 0")
+      end
+
+      it 'userが紐付いていないと保存できないこと' do
+        @item.user = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include('User must exist')
       end
 
   end 

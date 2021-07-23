@@ -22,7 +22,6 @@ class Item < ApplicationRecord
 
   
   validates :price, numericality: {only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999, message: "is invalid"}
-  validates :price, format: {with: /\A[a-z0-9]+\z/i, message: "is invalid. Input half-width characters."}
   
   
 

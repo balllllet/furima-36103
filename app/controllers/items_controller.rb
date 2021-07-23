@@ -22,6 +22,25 @@ def show
   @item = Item.find(params[:id])
 end 
 
+def edit
+  @item = Item.find(params[:id])
+  if @item.user.id != current_user.id
+    redirect_to root_path
+  end
+end  
+
+def update
+  @item = Item.find(params[:id])
+  @item.update(item_params) 
+  if @item.save
+    redirect_to item_path(@item)
+  else
+    render :edit
+  end
+end
+
+
+
  #def move_to_index
   #unless user_signed_in?
    #redirect_to action: :index

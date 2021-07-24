@@ -35,7 +35,6 @@ def update
 end
 
 def destroy
-  @item=Item.find(params[:id])
   @item.destroy
   redirect_to root_path
 end
@@ -48,7 +47,7 @@ end
 
 private
  def move_to_index
-  if user_signed_in? && @item.user.id != current_user.id
+  if @item.user.id != current_user.id
    redirect_to action: :index
   end
  end

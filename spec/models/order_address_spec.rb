@@ -48,7 +48,7 @@ RSpec.describe OrderAddress, type: :model do
     end
 
     it "郵便番号がハイフンなしでは保存ができないこと" do
-      @order.post = 1234567
+      @order.post = "1234567"
       @order.valid?
       expect(@order.errors.full_messages).to include("Post is invalid")
     end
@@ -84,7 +84,7 @@ RSpec.describe OrderAddress, type: :model do
     end
 
     it "電話番号が半角数字のみでないと登録できないこと" do
-      @order.tel = "0901111222２"
+      @order.tel = "090111122あa２"
       @order.valid?
       expect(@order.errors.full_messages).to include("Tel is not a number")
     end

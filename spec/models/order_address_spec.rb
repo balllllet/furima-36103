@@ -12,6 +12,13 @@ RSpec.describe OrderAddress, type: :model do
     it "全て入力すると保存ができること" do
       expect(@order).to be_valid
     end
+
+    it "建物名が空でも登録できること" do
+      @order.building = nil
+      expect(@order).to be_valid
+    end
+
+
   end
 
 
@@ -40,6 +47,12 @@ RSpec.describe OrderAddress, type: :model do
       expect(@order.errors.full_messages).to include("Post can't be blank")
     end
 
+    it "郵便番号がハイフンなしでは保存ができないこと" do
+      @order.post = 1234567
+      @order.valid?
+      expect(@order.errors.full_messages).to include("Post is invalid")
+    end
+
     it "都道府県が空では登録できないこと" do
       @order.prefecture_id = nil
       @order.valid?
@@ -62,6 +75,30 @@ RSpec.describe OrderAddress, type: :model do
       @order.tel = nil
       @order.valid?
       expect(@order.errors.full_messages).to include("Tel can't be blank")
+    end
+
+    it "電話番号が半角数字のみでないと登録できないこと" do
+      @order.tel = "0901111222２"
+      @order.valid?
+      expect(@order.errors.full_messages).to include("Tel is not a number")
+    end
+
+    it "電話番号が全角数字だと登録できないこと" do
+      @order.tel = "１２３４５６７８９０１"
+      @order.valid?
+      expect(@order.errors.full_messages).to include("Tel is not a number")
+    end
+
+    it "電話番号が9桁以下だと登録できないこと" do
+      @order.tel = "12345678"
+      @order.valid?
+      expect(@order.errors.full_messages).to include("Tel is too short (minimum is 10 characters)")
+    end
+
+    it "電話番号が12桁以上だと登録できないこと" do
+      @order.tel = "123456789012"
+      @order.valid?
+      expect(@order.errors.full_messages).to include("Tel is too long (maximum is 11 characters)")
     end
 
   end  

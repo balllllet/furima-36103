@@ -3,13 +3,14 @@ class OrderAddress
   attr_accessor :token, :item_id, :user_id, :post, :prefecture_id, :city, :address, :building, :tel
 
   with_options presence: true do
+    validates :token
     validates :post, format: { with:/\A\d{3}[-]\d{4}\z/} 
     validates :prefecture_id, numericality: { other_than: 0 } 
     validates :city           
     validates :address            
     validates :tel, numericality: { only_integer: true },length: { maximum: 11, minimum: 10}         
     validates :user_id       
-    validates :item_id       
+    validates :item_id 
   end        
   
   def save

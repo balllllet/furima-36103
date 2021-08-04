@@ -22,11 +22,11 @@ class Item < ApplicationRecord
   end
 
   
-  validates :price, numericality: {only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999, message: "is invalid"}
+  validates :price, numericality: {only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999}
   
   
 
-  with_options numericality: { other_than: 0 }  do
+  with_options numericality: { other_than: 0 ,message: 'を選択してください' }  do
       validates :category_id 
       validates :sales_status_id 
       validates :shipping_fee_status_id
